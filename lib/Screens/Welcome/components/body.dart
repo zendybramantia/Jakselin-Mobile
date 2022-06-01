@@ -8,22 +8,26 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Background(
-      child:
-          Column(mainAxisAlignment: MainAxisAlignment.end, children: <Widget>[
-        ClipRRect(
-          borderRadius: BorderRadius.circular(14),
-          child: FlatButton(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 40),
-            color: const Color(0xffF39A97),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 40),
+                primary: const Color(0xffF39A97)),
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return const LoginScreen();
-              }));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const LoginScreen()));
             },
-            child: const Text("Lanjut", style: TextStyle(fontSize: 20)),
+            child: const Text('Lanjut',
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.black,
+                )),
           ),
-        )
-      ]),
+        ],
+      ),
     );
   }
 }

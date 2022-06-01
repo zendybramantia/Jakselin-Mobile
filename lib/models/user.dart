@@ -25,7 +25,7 @@ class User {
   String username;
   String password;
   String avatar;
-  String isAdmin;
+  String? isAdmin;
   DateTime? createdAt;
   DateTime? updatedAt;
 

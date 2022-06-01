@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jakselin/Screens/Login/components/textfield_component.dart';
+import 'package:jakselin/Widget/textfield_component.dart';
 import 'package:jakselin/Screens/Login/login_screen.dart';
 import 'package:jakselin/Screens/Register/components/background.dart';
 
@@ -43,27 +43,20 @@ class Body extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(14),
-              child: FlatButton(
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
                 padding:
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                color: const Color(0xffF0585B),
-                onPressed: () {
-                  Navigator.push(
+                primary: const Color(0xffF0585B),
+              ),
+              onPressed: () {
+                Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) {
-                        return const LoginScreen();
-                      },
-                    ),
-                  );
-                },
-                child: const Text(
-                  "Daftar",
-                  style: TextStyle(fontSize: 20, color: Colors.white),
-                ),
-              ),
+                        builder: (context) => const LoginScreen()));
+              },
+              child: const Text('Daftar',
+                  style: TextStyle(fontSize: 20, color: Colors.white)),
             ),
             const SizedBox(
               height: 10,
@@ -96,7 +89,7 @@ class Body extends StatelessWidget {
                     alignment: Alignment.centerLeft,
                   ),
                   child: const Text(
-                    'Masuk disini',
+                    'masuk disini',
                     style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.w600,

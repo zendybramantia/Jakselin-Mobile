@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:jakselin/Screens/Login/components/textfield_component.dart';
+import 'package:jakselin/Widget/textfield_component.dart';
 import 'package:jakselin/Screens/Login/components/background.dart';
 import 'package:jakselin/Screens/Register/register_screen.dart';
-import 'package:jakselin/Screens/Welcome/welcome_screen.dart';
 
 class Body extends StatelessWidget {
   const Body({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -30,26 +28,19 @@ class Body extends StatelessWidget {
           const SizedBox(
             height: 30,
           ),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(14),
-            child: FlatButton(
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-              color: const Color(0xffF0585B),
-              onPressed: () {
-                Navigator.push(
+              primary: const Color(0xffF0585B),
+            ),
+            onPressed: () {
+              Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) {
-                      return const WelcomeScreen();
-                    },
-                  ),
-                );
-              },
-              child: const Text(
-                "Masuk",
-                style: TextStyle(fontSize: 20, color: Colors.white),
-              ),
-            ),
+                      builder: (context) => const RegisterScreen()));
+            },
+            child: const Text('Masuk',
+                style: TextStyle(fontSize: 20, color: Colors.white)),
           ),
           const SizedBox(
             height: 15,
