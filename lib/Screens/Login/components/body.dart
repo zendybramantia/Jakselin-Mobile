@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jakselin/Screens/Home/home_screen.dart';
 import 'package:jakselin/Widget/textfield_component.dart';
 import 'package:jakselin/Screens/Login/components/background.dart';
 import 'package:jakselin/Screens/Register/register_screen.dart';
@@ -34,10 +35,8 @@ class Body extends StatelessWidget {
               primary: const Color(0xffF0585B),
             ),
             onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const RegisterScreen()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const HomeScreen()));
             },
             child: const Text('Masuk',
                 style: TextStyle(fontSize: 20, color: Colors.white)),
