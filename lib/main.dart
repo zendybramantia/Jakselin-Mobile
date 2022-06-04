@@ -3,6 +3,7 @@ import 'package:jakselin/Screens/Login/login_screen.dart';
 import 'package:jakselin/Screens/Register/register_screen.dart';
 import 'package:jakselin/Screens/Welcome/welcome_screen.dart';
 import 'package:jakselin/constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,10 +13,11 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: true,
       title: 'Jakselin',
       theme: ThemeData(
         primaryColor: kPrimariColor,

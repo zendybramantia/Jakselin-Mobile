@@ -2,10 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:jakselin/Widget/textfield_component.dart';
 import 'package:jakselin/Screens/Login/login_screen.dart';
 import 'package:jakselin/Screens/Register/components/background.dart';
+import 'package:jakselin/models/user.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
 
+  @override
+  State<Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -73,6 +80,9 @@ class Body extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
+                    setState(() {
+                      logout();
+                    });
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -104,4 +114,9 @@ class Body extends StatelessWidget {
       ),
     );
   }
+}
+
+logout() async {
+  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  sharedPreferences.setString('token', '');
 }

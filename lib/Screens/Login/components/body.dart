@@ -1,12 +1,44 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:jakselin/Screens/Welcome/welcome_screen.dart';
 import 'package:jakselin/Widget/textfield_component.dart';
 import 'package:jakselin/Screens/Login/components/background.dart';
 import 'package:jakselin/Screens/Register/register_screen.dart';
+import 'package:http/http.dart' as http;
+import 'package:jakselin/constants.dart';
+import 'package:jakselin/models/user.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
+
+  @override
+  State<Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    checkLoginStatus();
+  }
+
+  checkLoginStatus() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    if (sharedPreferences.getString('token') != '') {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+              builder: (BuildContext context) => const RegisterScreen()),
+          (Route<dynamic> route) => false);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    late Future<User> user;
+    TextEditingController emailController = TextEditingController();
+    TextEditingController passwordController = TextEditingController();
     Size size = MediaQuery.of(context).size;
     return Background(
       size: size,
@@ -20,24 +52,24 @@ class Body extends StatelessWidget {
           const SizedBox(
             height: 30,
           ),
-          TextFieldComponent(size: size, title: 'Username'),
+          TextFieldComponent(
+              size: size, title: 'Username', controller: emailController),
           const SizedBox(
             height: 10,
           ),
-          TextFieldComponent(size: size, title: 'Password'),
+          TextFieldComponent(
+              size: size, title: 'Password', controller: passwordController),
           const SizedBox(
             height: 30,
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-              primary: const Color(0xffF0585B),
+              primary: kPrimariColor,
             ),
             onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const RegisterScreen()));
+              user = signIn(
+                  emailController.text, passwordController.text, context);
             },
             child: const Text('Masuk',
                 style: TextStyle(fontSize: 20, color: Colors.white)),
@@ -121,5 +153,45 @@ class Body extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Future<User> signIn(
+      String email, String password, BuildContext context) async {
+    var data = jsonEncode({'email': email, 'password': password});
+    var response = await http.post(
+        Uri.parse('http://127.0.0.1:8000/api/login/auth'),
+        headers: {"Content-Type": "application/json"},
+        body: data);
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    if (response.statusCode == 200) {
+      var jsonDataBody = jsonDecode(response.body);
+      var token = jsonDataBody['token'];
+      var jsonData = jsonDataBody['user'];
+      var id = jsonData['id'];
+      var email = jsonData['email'];
+      var name = jsonData['name'];
+      var nohp = jsonData['nohp'];
+      var username = jsonData['username'];
+      var avatar = jsonData['avatar'];
+      setState(() {
+        sharedPreferences.setString('token', token);
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: ((context) => const WelcomeScreen())),
+        );
+      });
+      return User(
+          id: id,
+          email: email,
+          name: name,
+          nohp: nohp,
+          username: username,
+          password: password,
+          avatar: avatar);
+    } else if (response.statusCode == 400) {
+      throw "Email or Password salah";
+    } else {
+      throw "server sedang bermasalah";
+    }
   }
 }
