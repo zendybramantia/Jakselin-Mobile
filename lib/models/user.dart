@@ -13,12 +13,12 @@ class User {
     required this.username,
     required this.password,
     required this.avatar,
-    required this.isAdmin,
+    this.isAdmin,
     this.createdAt,
     this.updatedAt,
   });
 
-  String id;
+  int id;
   String email;
   String name;
   String nohp;

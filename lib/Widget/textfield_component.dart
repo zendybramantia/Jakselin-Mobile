@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:jakselin/constants.dart';
 
 class TextFieldComponent extends StatefulWidget {
-  const TextFieldComponent({Key? key, required this.size, required this.title})
-      : super(key: key);
+  const TextFieldComponent({
+    Key? key,
+    required this.size,
+    required this.title,
+    this.controller,
+  }) : super(key: key);
 
+  final TextEditingController? controller;
   final String title;
   final Size size;
 
@@ -29,17 +35,22 @@ class _TextFieldComponentState extends State<TextFieldComponent> {
             flex: 1,
             child: SizedBox(
               width: widget.size.width * 0.54,
-              height: 30,
+              height: 34,
               child: TextFormField(
+                controller: widget.controller,
                 cursorColor: Colors.redAccent,
                 decoration: const InputDecoration(
+                  // enabledBorder: InputBorder.none,
+                  // focusedBorder: InputBorder.none,
+                  contentPadding:
+                      EdgeInsets.only(left: 10, right: 10, top: 0, bottom: 0),
                   // hintText: 'What do people call you?',
                   border: OutlineInputBorder(),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.redAccent),
+                    borderSide: BorderSide(color: kPrimariColor),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.redAccent),
+                    borderSide: BorderSide(color: kPrimariColor),
                   ),
                 ),
                 onSaved: (String? value) {
