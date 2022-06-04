@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Jakselin',
       theme: ThemeData(
+        fontFamily: 'Poppins',
         primaryColor: kPrimariColor,
         scaffoldBackgroundColor: Colors.white,
       ),
