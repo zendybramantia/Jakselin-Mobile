@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jakselin/Screens/Login/login_screen.dart';
+import 'package:jakselin/Screens/Profile/profile.dart';
 import 'package:jakselin/Screens/Register/register_screen.dart';
 import 'package:jakselin/Screens/Welcome/welcome_screen.dart';
 import 'package:jakselin/constants.dart';
@@ -25,8 +26,9 @@ class MyApp extends StatelessWidget {
         '/WelcomeScreen': (context) => const WelcomeScreen(),
         '/LoginScreen': (context) => const LoginScreen(),
         '/RegisterScreen': (context) => const RegisterScreen(),
+        '/ProfileScreen': (context) => const ProfileScreen(),
       },
-      home: const WelcomeScreen(),
+      home: const ProfileScreen(),
     );
   }
 }
