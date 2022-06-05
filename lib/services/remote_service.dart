@@ -10,7 +10,7 @@ class ApiClient {
         body: data);
     if (response.statusCode == 200) {
       var jsonData = jsonDecode(response.body);
-      print(jsonData);
+      // print(jsonData);
       return jsonData;
     } else if (response.statusCode == 400) {
       return "Email or Password salah";

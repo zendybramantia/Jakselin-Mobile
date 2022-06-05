@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:jakselin/Screens/Welcome/welcome_screen.dart';
+import 'package:jakselin/Screens/Profile/profile.dart';
 import 'package:jakselin/Widget/textfield_component.dart';
 import 'package:jakselin/Screens/Login/components/background.dart';
 import 'package:jakselin/Screens/Register/register_screen.dart';
@@ -17,9 +17,9 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  late Future<User> user;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     checkLoginStatus();
   }
@@ -27,16 +27,18 @@ class _BodyState extends State<Body> {
   checkLoginStatus() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     if (sharedPreferences.getString('token') != '') {
+      print(sharedPreferences.get('token'));
+      user = fetchData();
+      User userr = await user;
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
-              builder: (BuildContext context) => const RegisterScreen()),
+              builder: (BuildContext context) => ProfileScreen(profile: userr)),
           (Route<dynamic> route) => false);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    late Future<User> user;
     TextEditingController emailController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
     Size size = MediaQuery.of(context).size;
@@ -53,12 +55,18 @@ class _BodyState extends State<Body> {
             height: 30,
           ),
           TextFieldComponent(
-              size: size, title: 'Username', controller: emailController),
+              size: size,
+              title: 'Email',
+              controller: emailController,
+              isPassword: false),
           const SizedBox(
             height: 10,
           ),
           TextFieldComponent(
-              size: size, title: 'Password', controller: passwordController),
+              size: size,
+              title: 'Password',
+              controller: passwordController,
+              isPassword: true),
           const SizedBox(
             height: 30,
           ),
@@ -167,31 +175,48 @@ class _BodyState extends State<Body> {
       var jsonDataBody = jsonDecode(response.body);
       var token = jsonDataBody['token'];
       var jsonData = jsonDataBody['user'];
-      var id = jsonData['id'];
-      var email = jsonData['email'];
-      var name = jsonData['name'];
-      var nohp = jsonData['nohp'];
-      var username = jsonData['username'];
-      var avatar = jsonData['avatar'];
+      // var id = jsonData['id'];
+      // var email = jsonData['email'];
+      // var name = jsonData['name'];
+      // var nohp = jsonData['nohp'];
+      // var username = jsonData['username'];
+      // var avatar = jsonData['avatar'];
       setState(() {
         sharedPreferences.setString('token', token);
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: ((context) => const WelcomeScreen())),
-        );
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+                builder: (BuildContext context) => ProfileScreen(
+                      profile: User.fromJson(jsonData),
+                    )),
+            (Route<dynamic> route) => false);
       });
-      return User(
-          id: id,
-          email: email,
-          name: name,
-          nohp: nohp,
-          username: username,
-          password: password,
-          avatar: avatar);
+      return User.fromJson(jsonData);
+      // return User(
+      //     id: id,
+      //     email: email,
+      //     name: name,
+      //     nohp: nohp,
+      //     username: username,
+      //     password: password,
+      //     avatar: avatar);
     } else if (response.statusCode == 400) {
       throw "Email or Password salah";
     } else {
       throw "server sedang bermasalah";
+    }
+  }
+
+  Future<User> fetchData() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    var token = sharedPreferences.get('token');
+    var response = await http.get(
+        Uri.parse('http://127.0.0.1:8000/api/user/token'),
+        headers: {"Authorization": "Bearer $token"});
+    if (response.statusCode == 200) {
+      var jsonData = jsonDecode(response.body);
+      return User.fromJson(jsonData);
+    } else {
+      throw Exception("Failed to load User");
     }
   }
 }

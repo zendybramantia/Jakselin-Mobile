@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:jakselin/constants.dart';
 
 class TextFormInput extends StatelessWidget {
   const TextFormInput({
@@ -25,7 +26,7 @@ class TextFormInput extends StatelessWidget {
             color: Colors.grey,
           ),
           enabledBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0xFF6200EE)),
+            borderSide: BorderSide(color: kPrimariColor),
           ),
         ),
       ),

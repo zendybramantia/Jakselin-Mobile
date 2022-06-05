@@ -7,11 +7,13 @@ class TextFieldComponent extends StatefulWidget {
     required this.size,
     required this.title,
     this.controller,
+    required this.isPassword,
   }) : super(key: key);
 
   final TextEditingController? controller;
   final String title;
   final Size size;
+  final bool isPassword;
 
   @override
   State<TextFieldComponent> createState() => _TextFieldComponentState();
@@ -37,6 +39,7 @@ class _TextFieldComponentState extends State<TextFieldComponent> {
               width: widget.size.width * 0.54,
               height: 34,
               child: TextFormField(
+                obscureText: widget.isPassword,
                 controller: widget.controller,
                 cursorColor: Colors.redAccent,
                 decoration: const InputDecoration(

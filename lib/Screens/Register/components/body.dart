@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:jakselin/Widget/textfield_component.dart';
 import 'package:jakselin/Screens/Login/login_screen.dart';
 import 'package:jakselin/Screens/Register/components/background.dart';
-import 'package:jakselin/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Body extends StatefulWidget {
@@ -30,23 +29,23 @@ class _BodyState extends State<Body> {
             const SizedBox(
               height: 30,
             ),
-            TextFieldComponent(size: size, title: 'Nama'),
+            TextFieldComponent(size: size, title: 'Nama', isPassword: false),
             const SizedBox(
               height: 10,
             ),
-            TextFieldComponent(size: size, title: 'Email'),
+            TextFieldComponent(size: size, title: 'Email', isPassword: false),
             const SizedBox(
               height: 10,
             ),
-            TextFieldComponent(size: size, title: 'No. Hp'),
+            TextFieldComponent(size: size, title: 'No. Hp', isPassword: false),
             const SizedBox(
               height: 10,
             ),
-            TextFieldComponent(size: size, title: 'Username'),
+            TextFieldComponent(size: size, title: 'Username', isPassword: false),
             const SizedBox(
               height: 10,
             ),
-            TextFieldComponent(size: size, title: 'Password'),
+            TextFieldComponent(size: size, title: 'Password', isPassword: false),
             const SizedBox(
               height: 20,
             ),
@@ -80,9 +79,6 @@ class _BodyState extends State<Body> {
                 ),
                 TextButton(
                   onPressed: () {
-                    setState(() {
-                      logout();
-                    });
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -114,9 +110,4 @@ class _BodyState extends State<Body> {
       ),
     );
   }
-}
-
-logout() async {
-  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-  sharedPreferences.setString('token', '');
 }

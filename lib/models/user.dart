@@ -11,7 +11,7 @@ class User {
     required this.name,
     required this.nohp,
     required this.username,
-    required this.password,
+    this.password,
     required this.avatar,
     this.isAdmin,
     this.createdAt,
@@ -23,7 +23,7 @@ class User {
   String name;
   String nohp;
   String username;
-  String password;
+  String? password;
   String avatar;
   String? isAdmin;
   DateTime? createdAt;
