@@ -76,8 +76,7 @@ class _BodyState extends State<Body> {
               primary: kPrimariColor,
             ),
             onPressed: () {
-              user = signIn(
-                  emailController.text, passwordController.text, context);
+              signIn(emailController.text, passwordController.text, context);
             },
             child: const Text('Masuk',
                 style: TextStyle(fontSize: 20, color: Colors.white)),
@@ -163,8 +162,7 @@ class _BodyState extends State<Body> {
     );
   }
 
-  Future<User> signIn(
-      String email, String password, BuildContext context) async {
+  signIn(String email, String password, BuildContext context) async {
     var data = jsonEncode({'email': email, 'password': password});
     var response = await http.post(
         Uri.parse('http://127.0.0.1:8000/api/login/auth'),
@@ -175,14 +173,9 @@ class _BodyState extends State<Body> {
       var jsonDataBody = jsonDecode(response.body);
       var token = jsonDataBody['token'];
       var jsonData = jsonDataBody['user'];
-      // var id = jsonData['id'];
-      // var email = jsonData['email'];
-      // var name = jsonData['name'];
-      // var nohp = jsonData['nohp'];
-      // var username = jsonData['username'];
-      // var avatar = jsonData['avatar'];
       setState(() {
         sharedPreferences.setString('token', token);
+        sharedPreferences.setString('user', jsonEncode(jsonData));
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(
                 builder: (BuildContext context) => ProfileScreen(
@@ -190,15 +183,7 @@ class _BodyState extends State<Body> {
                     )),
             (Route<dynamic> route) => false);
       });
-      return User.fromJson(jsonData);
-      // return User(
-      //     id: id,
-      //     email: email,
-      //     name: name,
-      //     nohp: nohp,
-      //     username: username,
-      //     password: password,
-      //     avatar: avatar);
+      // return User.fromJson(jsonData);
     } else if (response.statusCode == 400) {
       throw "Email or Password salah";
     } else {

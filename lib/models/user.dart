@@ -1,30 +1,34 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:jakselin/models/shared_pref.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 User UserFromJson(String str) => User.fromJson(json.decode(str));
 
 String UserToJson(User data) => json.encode(data.toJson());
 
 class User {
   User({
-    required this.id,
-    required this.email,
-    required this.name,
-    required this.nohp,
-    required this.username,
+    this.id,
+    this.email,
+    this.name,
+    this.nohp,
+    this.username,
     this.password,
-    required this.avatar,
+    this.avatar,
     this.isAdmin,
     this.createdAt,
     this.updatedAt,
   });
 
-  int id;
-  String email;
-  String name;
-  String nohp;
-  String username;
+  int? id;
+  String? email;
+  String? name;
+  String? nohp;
+  String? username;
   String? password;
-  String avatar;
+  String? avatar;
   String? isAdmin;
   DateTime? createdAt;
   DateTime? updatedAt;

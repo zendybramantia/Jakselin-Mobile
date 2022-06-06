@@ -3,6 +3,7 @@ import 'package:jakselin/Screens/EditProfile/edit_profile.dart';
 import 'package:jakselin/Screens/Login/login_screen.dart';
 import 'package:jakselin/Screens/Profile/components/profile_menu.dart';
 import 'package:jakselin/Screens/Profile/components/profile_pic.dart';
+import 'package:jakselin/models/shared_pref.dart';
 import 'package:jakselin/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -10,20 +11,41 @@ import 'package:http/http.dart' as http;
 import 'button.dart';
 
 class Body extends StatefulWidget {
-  const Body({Key? key, required this.profile}) : super(key: key);
+  const Body({Key? key, this.profile}) : super(key: key);
 
-  final User profile;
+  final User? profile;
 
   @override
   State<Body> createState() => _BodyState();
 }
 
 class _BodyState extends State<Body> {
-  bool _isLoading = false;
+  bool _isLoading = true;
+  User user = User();
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   user = fetchUserData();
+  // }
+
+  fetchDataUser() async {
+    try {
+      final pref = await SharedPreferences.getInstance();
+      User userdata = UserFromJson(pref.getString('user') as String);
+      setState(() {
+        user = userdata;
+        _isLoading = false;
+      });
+    } on Exception {
+      throw "No Data";
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    var profile = widget.profile;
+    // var profile = widget.profile;
+    fetchDataUser();
     return _isLoading
         ? const Center(child: CircularProgressIndicator())
         : Column(
@@ -36,7 +58,7 @@ class _BodyState extends State<Body> {
                 height: 20,
               ),
               Text(
-                profile.name,
+                user.name!,
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               const SizedBox(
@@ -44,17 +66,17 @@ class _BodyState extends State<Body> {
               ),
               ProfileMenu(
                 menu: 'Username',
-                value: profile.username,
+                value: user.username!,
                 icon: Icons.person_outline,
               ),
               ProfileMenu(
                 menu: 'Email',
-                value: profile.email,
+                value: user.email!,
                 icon: Icons.mail_outline,
               ),
               ProfileMenu(
                 menu: 'Telepon',
-                value: profile.nohp,
+                value: user.nohp!,
                 icon: Icons.phone,
               ),
               const SizedBox(
