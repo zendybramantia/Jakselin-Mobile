@@ -195,7 +195,7 @@ class _BodyState extends State<Body> {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     var token = sharedPreferences.get('token');
     var response = await http.get(
-        Uri.parse('http://127.0.0.1:8000/api/user/token'),
+        Uri.parse('http://127.0.0.1:8000/api/login/token'),
         headers: {"Authorization": "Bearer $token"});
     if (response.statusCode == 200) {
       var jsonData = jsonDecode(response.body);
