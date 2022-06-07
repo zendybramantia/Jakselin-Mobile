@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:jakselin/Screens/EditProfile/components/body.dart';
 
 class EditProfile extends StatelessWidget {
-  const EditProfile({Key? key}) : super(key: key);
-
+  const EditProfile({Key? key, required this.id}) : super(key: key);
+  final String? id;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,6 +17,8 @@ class EditProfile extends StatelessWidget {
           ),
           backgroundColor: Colors.white,
         ),
-        body: const Body());
+        body: Body(
+          id: id!,
+        ));
   }
 }

@@ -5,11 +5,11 @@ import 'package:jakselin/api/userapi.dart';
 import 'package:jakselin/constants.dart';
 
 class Body extends StatelessWidget {
-  const Body({Key? key}) : super(key: key);
-
+  const Body({Key? key, required this.id}) : super(key: key);
+  final String id;
   @override
   Widget build(BuildContext context) {
-    String id = "3";
+    // String id = "3";
     TextEditingController nama = TextEditingController();
     TextEditingController email = TextEditingController();
     TextEditingController username = TextEditingController();
@@ -23,13 +23,13 @@ class Body extends StatelessWidget {
           const SizedBox(
             height: 16,
           ),
-          Text("data"),
+          Text(id),
           TextFormInput(
               label: "Username", isPassword: false, control: username),
           TextFormInput(label: "Name", isPassword: false, control: nama),
           TextFormInput(label: "Email", isPassword: false, control: email),
-          TextFormInput(label: "Phone", isPassword: false, control: password),
-          TextFormInput(label: "Password", isPassword: true, control: nohp),
+          TextFormInput(label: "Phone", isPassword: false, control: nohp),
+          TextFormInput(label: "Password", isPassword: true, control: password),
           const SizedBox(
             height: 16,
           ),

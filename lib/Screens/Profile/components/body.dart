@@ -78,7 +78,9 @@ class _BodyState extends State<Body> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const EditProfile()),
+                          builder: (context) => EditProfile(
+                                id: user.id!.toString(),
+                              )),
                     );
                   },
                   text: "Edit Profile",

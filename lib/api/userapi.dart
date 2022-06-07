@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:jakselin/Screens/Login/login_screen.dart';
 import 'package:jakselin/Screens/Profile/profile.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 registerUser(String nama, String email, String username, String password,
     String nohp, BuildContext context) async {
@@ -44,8 +45,10 @@ updateUser(String id, String nama, String email, String username,
     headers: {"Content-Type": "application/json"},
     body: data,
   );
+  SharedPreferences pref = await SharedPreferences.getInstance();
   if (jsonDecode(response.body)['message'] == "Success") {
     // ignore: use_build_context_synchronously
+    pref.setString('user', data);
     Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(
           builder: (BuildContext context) => const ProfileScreen()),
