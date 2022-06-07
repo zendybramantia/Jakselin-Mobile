@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:jakselin/models/wisata.dart';
 import '../../../models/colors.dart';
-import '../../../models/wisataKuliner.dart';
 
 class WisataProfileScreen extends StatefulWidget {
   final WisataInfo wisataInfo;
@@ -19,8 +19,8 @@ class _WisataProfileScreenState extends State<WisataProfileScreen> {
       backgroundColor: whiteClr,
       body: Stack(
         children: [
-          Image.asset(
-            widget.wisataInfo.gambar,
+          Image.network(
+            "http://127.0.0.1:8000/${widget.wisataInfo.gambar}",
             width: double.infinity,
             fit: BoxFit.cover,
             height: MediaQuery.of(context).size.height * 0.5,
@@ -76,7 +76,7 @@ class _WisataProfileScreenState extends State<WisataProfileScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(widget.wisataInfo.nama,
+                            Text(widget.wisataInfo.nama_tempat,
                                 style: const TextStyle(
                                     fontSize: 25, fontWeight: FontWeight.w600)),
                             const SizedBox(
@@ -124,14 +124,6 @@ class _WisataProfileScreenState extends State<WisataProfileScreen> {
                                           fontSize: 16,
                                           fontWeight: FontWeight.w400))
                                 ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                widget.wisataInfo.deskripsi,
-                                style: const TextStyle(
-                                    color: greyClr, fontSize: 15),
                               ),
                             ),
                             Padding(
