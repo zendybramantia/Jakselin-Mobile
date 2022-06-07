@@ -2,10 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:jakselin/Widget/textfield_component.dart';
 import 'package:jakselin/Screens/Login/login_screen.dart';
 import 'package:jakselin/Screens/Register/components/background.dart';
+import 'package:jakselin/api/userApi.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
 
+  @override
+  State<Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
+  TextEditingController nama = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController username = TextEditingController();
+  TextEditingController password = TextEditingController();
+  TextEditingController nohp = TextEditingController();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -23,23 +35,40 @@ class Body extends StatelessWidget {
             const SizedBox(
               height: 30,
             ),
-            TextFieldComponent(size: size, title: 'Nama'),
+            TextFieldComponent(
+                size: size, title: 'Nama', isPassword: false, controller: nama),
             const SizedBox(
               height: 10,
             ),
-            TextFieldComponent(size: size, title: 'Email'),
+            TextFieldComponent(
+                size: size,
+                title: 'Email',
+                isPassword: false,
+                controller: email),
             const SizedBox(
               height: 10,
             ),
-            TextFieldComponent(size: size, title: 'No. Hp'),
+            TextFieldComponent(
+                size: size,
+                title: 'No. Hp',
+                isPassword: false,
+                controller: nohp),
             const SizedBox(
               height: 10,
             ),
-            TextFieldComponent(size: size, title: 'Username'),
+            TextFieldComponent(
+                size: size,
+                title: 'Username',
+                isPassword: false,
+                controller: username),
             const SizedBox(
               height: 10,
             ),
-            TextFieldComponent(size: size, title: 'Password'),
+            TextFieldComponent(
+                size: size,
+                title: 'Password',
+                isPassword: false,
+                controller: password),
             const SizedBox(
               height: 20,
             ),
@@ -50,10 +79,8 @@ class Body extends StatelessWidget {
                 primary: const Color(0xffF0585B),
               ),
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const LoginScreen()));
+                registerUser(nama.text, email.text, username.text,
+                    password.text, nohp.text, context);
               },
               child: const Text('Daftar',
                   style: TextStyle(fontSize: 20, color: Colors.white)),

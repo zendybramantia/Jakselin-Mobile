@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:jakselin/Screens/Profile/components/body.dart';
+import 'package:jakselin/models/user.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+  const ProfileScreen({Key? key, this.profile}) : super(key: key);
+
+  final User? profile;
 
   @override
   Widget build(BuildContext context) {
@@ -10,13 +13,13 @@ class ProfileScreen extends StatelessWidget {
         appBar: AppBar(
           elevation: 0,
           centerTitle: true,
-          iconTheme: IconThemeData(color: Colors.black),
+          iconTheme: const IconThemeData(color: Colors.black),
           title: const Text(
             "Profile",
             style: TextStyle(color: Colors.black),
           ),
           backgroundColor: Colors.white,
         ),
-        body: const Body());
+        body: Body(profile: profile));
   }
 }

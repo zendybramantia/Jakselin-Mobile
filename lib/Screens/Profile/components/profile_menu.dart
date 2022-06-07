@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jakselin/constants.dart';
 
 class ProfileMenu extends StatelessWidget {
   const ProfileMenu({
@@ -27,7 +28,11 @@ class ProfileMenu extends StatelessWidget {
               children: [
                 Icon(
                   icon,
+<<<<<<< HEAD
                   color: const Color(0xffF0585B),
+=======
+                  color: kPrimariColor,
+>>>>>>> 738dc5c2cb0e665e2a7ec5fc6abb52fe5b0d127c
                 ),
                 const SizedBox(
                   width: 20,

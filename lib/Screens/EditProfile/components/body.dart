@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:jakselin/Screens/EditProfile/components/text_form_input.dart';
 import 'package:jakselin/Screens/Profile/components/profile_pic.dart';
+import 'package:jakselin/constants.dart';
 
 class Body extends StatelessWidget {
   const Body({Key? key}) : super(key: key);
@@ -26,7 +27,7 @@ class Body extends StatelessWidget {
           ElevatedButton(
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-              primary: const Color(0xffF0585B),
+              primary: kPrimariColor,
             ),
             onPressed: () {},
             child: const Text('Submit'),

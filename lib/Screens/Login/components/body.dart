@@ -1,12 +1,49 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:jakselin/Screens/Main/main_screen.dart';
+import 'package:jakselin/Screens/Profile/profile.dart';
 import 'package:jakselin/Widget/textfield_component.dart';
 import 'package:jakselin/Screens/Login/components/background.dart';
 import 'package:jakselin/Screens/Register/register_screen.dart';
+import 'package:http/http.dart' as http;
+import 'package:jakselin/constants.dart';
+import 'package:jakselin/models/shared_pref.dart';
+import 'package:jakselin/models/user.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
+
+  @override
+  State<Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
+  late Future<User> user;
+  @override
+  void initState() {
+    super.initState();
+    // checkLogin(context);
+    // checkLoginStatus();
+  }
+
+  // checkLoginStatus() async {
+  //   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  //   if (sharedPreferences.getString('token') != '') {
+  //     print(sharedPreferences.get('token'));
+  //     user = fetchData();
+  //     Navigator.of(context).pushAndRemoveUntil(
+  //         MaterialPageRoute(
+  //             builder: (BuildContext context) =>
+  //                 ProfileScreen(profile: user as User)),
+  //         (Route<dynamic> route) => false);
+  //   }
+  // }
+
   @override
   Widget build(BuildContext context) {
+    TextEditingController emailController = TextEditingController();
+    TextEditingController passwordController = TextEditingController();
     Size size = MediaQuery.of(context).size;
     return Background(
       size: size,
@@ -20,24 +57,29 @@ class Body extends StatelessWidget {
           const SizedBox(
             height: 30,
           ),
-          TextFieldComponent(size: size, title: 'Username'),
+          TextFieldComponent(
+              size: size,
+              title: 'Email',
+              controller: emailController,
+              isPassword: false),
           const SizedBox(
             height: 10,
           ),
-          TextFieldComponent(size: size, title: 'Password'),
+          TextFieldComponent(
+              size: size,
+              title: 'Password',
+              controller: passwordController,
+              isPassword: true),
           const SizedBox(
             height: 30,
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-              primary: const Color(0xffF0585B),
+              primary: kPrimariColor,
             ),
             onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const RegisterScreen()));
+              signIn(emailController.text, passwordController.text, context);
             },
             child: const Text('Masuk',
                 style: TextStyle(fontSize: 20, color: Colors.white)),
@@ -122,4 +164,46 @@ class Body extends StatelessWidget {
       ),
     );
   }
+
+  signIn(String email, String password, BuildContext context) async {
+    var data = jsonEncode({'email': email, 'password': password});
+    var response = await http.post(
+        Uri.parse('http://127.0.0.1:8000/api/login/auth'),
+        headers: {"Content-Type": "application/json"},
+        body: data);
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    if (response.statusCode == 200) {
+      var jsonDataBody = jsonDecode(response.body);
+      var token = jsonDataBody['token'];
+      var jsonData = jsonDataBody['user'];
+      print(jsonData);
+      setState(() {
+        sharedPreferences.setString('token', token);
+        sharedPreferences.setString('user', jsonEncode(jsonData));
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+                builder: (BuildContext context) => const MainScreen()),
+            (Route<dynamic> route) => false);
+      });
+      // return User.fromJson(jsonData);
+    } else if (response.statusCode == 400) {
+      throw "Email or Password salah";
+    } else {
+      throw "server sedang bermasalah";
+    }
+  }
+
+  // Future<User> fetchData() async {
+  //   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  //   var token = sharedPreferences.get('token');
+  //   var response = await http.get(
+  //       Uri.parse('http://127.0.0.1:8000/api/user/token'),
+  //       headers: {"Authorization": "Bearer $token"});
+  //   if (response.statusCode == 200) {
+  //     var jsonData = jsonDecode(response.body);
+  //     return User.fromJson(jsonData);
+  //   } else {
+  //     throw Exception("Failed to load User");
+  //   }
+  // }
 }

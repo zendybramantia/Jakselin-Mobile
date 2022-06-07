@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:jakselin/Screens/Login/login_screen.dart';
 import 'package:jakselin/Screens/Profile/profile.dart';
+
+import 'package:jakselin/Screens/Main/main_screen.dart';
 import 'package:jakselin/Screens/Register/register_screen.dart';
 import 'package:jakselin/Screens/Welcome/welcome_screen.dart';
 import 'package:jakselin/constants.dart';
@@ -16,7 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: true,
       title: 'Jakselin',
       theme: ThemeData(
         fontFamily: 'Poppins',
@@ -28,8 +30,10 @@ class MyApp extends StatelessWidget {
         '/LoginScreen': (context) => const LoginScreen(),
         '/RegisterScreen': (context) => const RegisterScreen(),
         '/ProfileScreen': (context) => const ProfileScreen(),
+        '/MainScreen': (context) => const MainScreen()
+        // '/ProfileScreen': (context) => const ProfileScreen(),
       },
-      home: const ProfileScreen(),
+      home: const WelcomeScreen(),
     );
   }
 }
