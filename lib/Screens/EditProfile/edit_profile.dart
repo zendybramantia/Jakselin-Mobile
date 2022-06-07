@@ -10,7 +10,7 @@ class EditProfile extends StatelessWidget {
         appBar: AppBar(
           elevation: 0,
           centerTitle: true,
-          iconTheme: IconThemeData(color: Colors.black),
+          iconTheme: const IconThemeData(color: Colors.black),
           title: const Text(
             "Edit Profile",
             style: TextStyle(color: Colors.black),

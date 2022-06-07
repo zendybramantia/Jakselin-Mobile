@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:jakselin/models/colors.dart';
 
-class profiletest extends StatelessWidget {
-  const profiletest({Key? key}) : super(key: key);
+class Profiletest extends StatelessWidget {
+  const Profiletest({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

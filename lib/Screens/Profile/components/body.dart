@@ -33,56 +33,6 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
-    return Column(
-      children: <Widget>[
-        const SizedBox(
-          height: 20,
-        ),
-        const ProfilePic(),
-        const SizedBox(
-          height: 20,
-        ),
-        const Text(
-          "Zendy Bramantia",
-          style: const TextStyle(fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        const ProfileMenu(
-          menu: 'Username',
-          value: 'zendykecil',
-          icon: Icons.person_outline,
-        ),
-        const ProfileMenu(
-          menu: 'Email',
-          value: 'zendyoke@gmail.com',
-          icon: Icons.mail_outline,
-        ),
-        const ProfileMenu(
-          menu: 'Telepon',
-          value: '0813131123',
-          icon: Icons.phone,
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        Button(
-            press: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const EditProfile()),
-              );
-            },
-            text: "Edit Profile"),
-        const SizedBox(
-          height: 20,
-        ),
-        Button(press: () {}, text: "Log Out"),
-      ],
-    );
-=======
     return FutureBuilder(
         future: fetchUserData(),
         builder: ((context, snapshot) {
@@ -168,6 +118,5 @@ class _BodyState extends State<Body> {
     } else {
       throw Exception("Tidak Berhasil Logout");
     }
->>>>>>> 738dc5c2cb0e665e2a7ec5fc6abb52fe5b0d127c
   }
 }

@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:jakselin/Screens/Login/login_screen.dart';
-import 'package:jakselin/Screens/Profile/profile.dart';
 import 'package:jakselin/Screens/Welcome/components/background.dart';
 import 'package:jakselin/models/shared_pref.dart';
 import 'package:jakselin/models/user.dart';
