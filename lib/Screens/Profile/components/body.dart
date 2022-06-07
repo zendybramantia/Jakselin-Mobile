@@ -52,6 +52,10 @@ class Body extends StatelessWidget {
               );
             },
             text: "Edit Profile"),
+        const SizedBox(
+          height: 20,
+        ),
+        Button(press: () {}, text: "Log Out"),
       ],
     );
   }

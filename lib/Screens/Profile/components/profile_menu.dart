@@ -27,7 +27,7 @@ class ProfileMenu extends StatelessWidget {
               children: [
                 Icon(
                   icon,
-                  color: Color(0xffF0585B),
+                  color: const Color(0xffF0585B),
                 ),
                 const SizedBox(
                   width: 20,
@@ -37,7 +37,7 @@ class ProfileMenu extends StatelessWidget {
                   menu,
                   style: const TextStyle(fontWeight: FontWeight.bold),
                 )),
-                Text(menu),
+                Text(value),
               ],
             ),
           )),
