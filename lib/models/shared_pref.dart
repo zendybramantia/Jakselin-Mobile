@@ -34,20 +34,6 @@ checkLogin(BuildContext context, String? ifLogged) async {
     Navigator.pushNamed(context, ifLogged);
   }
 }
-// checkLogin(BuildContext context) async {
-//   if (await islogin(context)) {
-//     User user = await fetchUserData();
-//     Navigator.of(context).pushAndRemoveUntil(
-//       MaterialPageRoute(builder: (BuildContext context) => const MainScreen()),
-//       (Route<dynamic> route) => false,
-//     );
-//   } else {
-//     Navigator.of(context).pushAndRemoveUntil(
-//       MaterialPageRoute(builder: (BuildContext context) => const LoginScreen()),
-//       (Route<dynamic> route) => false,
-//     );
-//   }
-// }
 
 Future<bool> islogin(BuildContext context) async {
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -73,14 +59,3 @@ Future<User> fetchUserData() async {
     throw Exception(response.body);
   }
 }
-
-// Future<String> getUserString() async {
-//   SharedPref pref = SharedPref();
-//   String userStr = pref.read('user');
-//   return userStr;
-// }
-
-// User fetchUserData() {
-//   String userString = getUserString() as String;
-//   return UserFromJson(userString);
-// }
