@@ -67,6 +67,7 @@ flutter:
     - assets/images/LandingPage/
     - assets/images/LoginPage/
     - assets/images/RegisterPage/
+    - assets/images/WisataKuliner/
     - assets/icons/
   #   - images/a_dot_ham.jpeg
 
