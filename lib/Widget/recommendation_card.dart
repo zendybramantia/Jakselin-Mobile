@@ -14,13 +14,14 @@ class RecommendationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return InkWell(
       onTap: press,
       child: Material(
         borderRadius: BorderRadius.circular(20),
         elevation: 5,
         child: Container(
-          height: 300,
+          height: size.height * 0.34,
           width: 200,
           decoration: BoxDecoration(
               color: whiteClr, borderRadius: BorderRadius.circular(20)),

@@ -1,9 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:jakselin/Screens/DummyScreen/dummy.dart';
 import 'package:jakselin/Screens/Login/login_screen.dart';
-import 'package:jakselin/Screens/Profile/profile.dart';
 import 'package:jakselin/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
@@ -26,26 +24,36 @@ class SharedPref {
   }
 }
 
-checkLogin(BuildContext context) async {
-  if (await islogin(context)) {
-    User user = await fetchUserData();
-    Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (BuildContext context) => const Dummy()),
-      (Route<dynamic> route) => false,
-    );
-  } else {
+checkLogin(BuildContext context, String? ifLogged) async {
+  if (!await islogin(context)) {
     Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(builder: (BuildContext context) => const LoginScreen()),
       (Route<dynamic> route) => false,
     );
+  } else if (ifLogged != null) {
+    Navigator.pushNamed(context, ifLogged);
   }
 }
+// checkLogin(BuildContext context) async {
+//   if (await islogin(context)) {
+//     User user = await fetchUserData();
+//     Navigator.of(context).pushAndRemoveUntil(
+//       MaterialPageRoute(builder: (BuildContext context) => const MainScreen()),
+//       (Route<dynamic> route) => false,
+//     );
+//   } else {
+//     Navigator.of(context).pushAndRemoveUntil(
+//       MaterialPageRoute(builder: (BuildContext context) => const LoginScreen()),
+//       (Route<dynamic> route) => false,
+//     );
+//   }
+// }
 
 Future<bool> islogin(BuildContext context) async {
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-  if (sharedPreferences.getString('token') == '') {
+  if (sharedPreferences.getString('token') == null) {
     return false;
-  } else if (sharedPreferences.getString('token') != '') {
+  } else if (sharedPreferences.getString('token') != null) {
     return true;
   }
   return false;
@@ -58,6 +66,7 @@ Future<User> fetchUserData() async {
       Uri.parse('http://127.0.0.1:8000/api/user/token'),
       headers: {"Authorization": "Bearer $token"});
   if (response.statusCode == 200) {
+    print(response.body);
     var jsonData = jsonDecode(response.body);
     return User.fromJson(jsonData);
   } else {

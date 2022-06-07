@@ -23,13 +23,12 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  bool _isLoading = true;
   // User user = User();
 
   @override
   void initState() {
     super.initState();
-    checkLogin(context);
+    checkLogin(context, null);
   }
 
   @override
@@ -37,8 +36,8 @@ class _BodyState extends State<Body> {
     return FutureBuilder(
         future: fetchUserData(),
         builder: ((context, snapshot) {
-          print(snapshot.data);
           if (snapshot.hasData) {
+            print(snapshot.data);
             var user = snapshot.data as User;
             return Column(
               children: <Widget>[
@@ -75,25 +74,24 @@ class _BodyState extends State<Body> {
                   height: 20,
                 ),
                 Button(
-                    press: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const EditProfile()),
-                      );
-                    },
-                    text: "Edit Profile"),
+                  press: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const EditProfile()),
+                    );
+                  },
+                  text: "Edit Profile",
+                ),
                 const SizedBox(
                   height: 20,
                 ),
                 Button(
-                    press: () {
-                      setState(() {
-                        _isLoading = true;
-                      });
-                      logout();
-                    },
-                    text: "Logout"),
+                  press: () {
+                    logout();
+                  },
+                  text: "Logout",
+                ),
               ],
             );
           }
@@ -111,8 +109,7 @@ class _BodyState extends State<Body> {
         headers: {"Authorization": "Bearer $token"});
     if (response.statusCode == 200) {
       setState(() {
-        sharedPreferences.setString('token', '');
-        _isLoading = false;
+        sharedPreferences.remove('token');
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(
                 builder: (BuildContext context) => const LoginScreen()),

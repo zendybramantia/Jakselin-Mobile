@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:jakselin/Screens/Main/main_screen.dart';
 import 'package:jakselin/Screens/Profile/profile.dart';
 import 'package:jakselin/Widget/textfield_component.dart';
 import 'package:jakselin/Screens/Login/components/background.dart';
@@ -22,7 +23,7 @@ class _BodyState extends State<Body> {
   @override
   void initState() {
     super.initState();
-    checkLogin(context);
+    // checkLogin(context);
     // checkLoginStatus();
   }
 
@@ -181,9 +182,7 @@ class _BodyState extends State<Body> {
         sharedPreferences.setString('user', jsonEncode(jsonData));
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(
-                builder: (BuildContext context) => ProfileScreen(
-                      profile: User.fromJson(jsonData),
-                    )),
+                builder: (BuildContext context) => const MainScreen()),
             (Route<dynamic> route) => false);
       });
       // return User.fromJson(jsonData);

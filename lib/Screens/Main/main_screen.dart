@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jakselin/Screens/Home/home_screen.dart';
+import 'package:jakselin/Screens/Profile/profile.dart';
 import 'package:jakselin/Screens/profiletest.dart';
 import 'package:jakselin/models/colors.dart';
 
@@ -11,7 +12,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  List pages = const [HomeScreen(), profiletest()];
+  List pages = const [HomeScreen(), ProfileScreen()];
 
   int currentIndex = 0;
   void OnTap(int index) {

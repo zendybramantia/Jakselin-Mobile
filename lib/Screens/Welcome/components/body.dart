@@ -21,7 +21,7 @@ class _BodyState extends State<Body> {
   @override
   void initState() {
     super.initState();
-    checkLogin(context);
+    checkLogin(context, '/MainScreen');
   }
 
   // checkLoginStatus() async {
@@ -62,23 +62,4 @@ class _BodyState extends State<Body> {
       ),
     );
   }
-
-  // Future<User> fetchData() async {
-  //   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-  //   var token = sharedPreferences.get('token');
-  //   var response = await http.get(
-  //       Uri.parse('http://127.0.0.1:8000/api/user/token'),
-  //       headers: {"Authorization": "Bearer $token"});
-  //   if (response.statusCode == 200) {
-  //     try {
-  //       var jsonData = jsonDecode(response.body);
-  //       return User.fromJson(jsonData);
-  //     } catch (e) {
-  //       sharedPreferences.setString('token', '');
-  //       throw Exception("Token masih terdaftar, tetapi user sudah logout");
-  //     }
-  //   } else {
-  //     throw Exception("Failed to load User");
-  //   }
-  // }
 }
