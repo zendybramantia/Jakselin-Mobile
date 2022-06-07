@@ -6,6 +6,7 @@ import 'package:jakselin/Screens/Login/components/background.dart';
 import 'package:jakselin/Screens/Register/register_screen.dart';
 import 'package:http/http.dart' as http;
 import 'package:jakselin/constants.dart';
+import 'package:jakselin/models/shared_pref.dart';
 import 'package:jakselin/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -21,21 +22,22 @@ class _BodyState extends State<Body> {
   @override
   void initState() {
     super.initState();
-    checkLoginStatus();
+    checkLogin(context);
+    // checkLoginStatus();
   }
 
-  checkLoginStatus() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    if (sharedPreferences.getString('token') != '') {
-      print(sharedPreferences.get('token'));
-      user = fetchData();
-      User userr = await user;
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(
-              builder: (BuildContext context) => ProfileScreen(profile: userr)),
-          (Route<dynamic> route) => false);
-    }
-  }
+  // checkLoginStatus() async {
+  //   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  //   if (sharedPreferences.getString('token') != '') {
+  //     print(sharedPreferences.get('token'));
+  //     user = fetchData();
+  //     Navigator.of(context).pushAndRemoveUntil(
+  //         MaterialPageRoute(
+  //             builder: (BuildContext context) =>
+  //                 ProfileScreen(profile: user as User)),
+  //         (Route<dynamic> route) => false);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -173,6 +175,7 @@ class _BodyState extends State<Body> {
       var jsonDataBody = jsonDecode(response.body);
       var token = jsonDataBody['token'];
       var jsonData = jsonDataBody['user'];
+      print(jsonData);
       setState(() {
         sharedPreferences.setString('token', token);
         sharedPreferences.setString('user', jsonEncode(jsonData));
@@ -191,17 +194,17 @@ class _BodyState extends State<Body> {
     }
   }
 
-  Future<User> fetchData() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    var token = sharedPreferences.get('token');
-    var response = await http.get(
-        Uri.parse('http://127.0.0.1:8000/api/login/token'),
-        headers: {"Authorization": "Bearer $token"});
-    if (response.statusCode == 200) {
-      var jsonData = jsonDecode(response.body);
-      return User.fromJson(jsonData);
-    } else {
-      throw Exception("Failed to load User");
-    }
-  }
+  // Future<User> fetchData() async {
+  //   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  //   var token = sharedPreferences.get('token');
+  //   var response = await http.get(
+  //       Uri.parse('http://127.0.0.1:8000/api/user/token'),
+  //       headers: {"Authorization": "Bearer $token"});
+  //   if (response.statusCode == 200) {
+  //     var jsonData = jsonDecode(response.body);
+  //     return User.fromJson(jsonData);
+  //   } else {
+  //     throw Exception("Failed to load User");
+  //   }
+  // }
 }
