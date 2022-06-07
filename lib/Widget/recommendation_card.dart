@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:jakselin/models/wisata.dart';
 import '../models/colors.dart';
-import '../models/wisataKuliner.dart';
 
 class RecommendationCard extends StatelessWidget {
   final WisataInfo wisataInfo;
@@ -21,7 +21,11 @@ class RecommendationCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         elevation: 5,
         child: Container(
+<<<<<<< HEAD
           height: size.height * 0.34,
+=======
+          height: size.height * 0.43,
+>>>>>>> development-faishal
           width: 200,
           decoration: BoxDecoration(
               color: whiteClr, borderRadius: BorderRadius.circular(20)),
@@ -33,20 +37,24 @@ class RecommendationCard extends StatelessWidget {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   image: DecorationImage(
-                      fit: BoxFit.cover, image: AssetImage(wisataInfo.gambar))),
+                      fit: BoxFit.cover,
+                      image: NetworkImage(
+                          "http://127.0.0.1:8000/${wisataInfo.gambar}"))),
             ),
             const SizedBox(
               height: 10,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
-              child: Text(wisataInfo.nama,
+              child: Text(wisataInfo.nama_tempat,
                   style: const TextStyle(
-                      fontSize: 18, fontWeight: FontWeight.w400)),
+                      fontSize: 20, fontWeight: FontWeight.w500)),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(wisataInfo.alamat,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 3,
                   style: const TextStyle(color: greyClr)),
             )
           ]),
