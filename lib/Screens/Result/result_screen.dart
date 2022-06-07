@@ -16,7 +16,16 @@ class _WisataResultState extends State<WisataResult> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Jakselin")),
+      appBar: AppBar(
+        elevation: 0,
+        centerTitle: true,
+        iconTheme: const IconThemeData(color: Colors.black),
+        title: const Text(
+          "Category",
+          style: TextStyle(color: Colors.black),
+        ),
+        backgroundColor: Colors.white,
+      ),
       body: Container(
         padding: EdgeInsets.all(50),
         child: FutureBuilder(

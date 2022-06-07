@@ -21,11 +21,7 @@ class RecommendationCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         elevation: 5,
         child: Container(
-<<<<<<< HEAD
           height: size.height * 0.34,
-=======
-          height: size.height * 0.43,
->>>>>>> development-faishal
           width: 200,
           decoration: BoxDecoration(
               color: whiteClr, borderRadius: BorderRadius.circular(20)),

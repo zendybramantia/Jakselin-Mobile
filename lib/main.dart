@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jakselin/Screens/EditProfile/edit_profile.dart';
 import 'package:jakselin/Screens/Login/login_screen.dart';
 import 'package:jakselin/Screens/Profile/profile.dart';
 
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
         '/MainScreen': (context) => const MainScreen()
         // '/ProfileScreen': (context) => const ProfileScreen(),
       },
-      home: const WelcomeScreen(),
+      home: const EditProfile(),
     );
   }
 }
