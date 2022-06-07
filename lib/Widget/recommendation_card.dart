@@ -41,7 +41,7 @@ class RecommendationCard extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
               child: Text(wisataInfo.nama,
                   style: const TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.w500)),
+                      fontSize: 18, fontWeight: FontWeight.w400)),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),

@@ -29,7 +29,7 @@ class _BodyState extends State<Body> {
               height: 65,
               decoration: const BoxDecoration(
                 border: Border(
-                  bottom: BorderSide(width: 0.3, color: blackClr),
+                  bottom: BorderSide(width: 0.3, color: whiteClr),
                 ),
                 color: Colors.white,
               ),
@@ -50,9 +50,24 @@ class _BodyState extends State<Body> {
               ),
             ),
 
+            const SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 13),
+              child: Row(
+                children: const [
+                  Text(
+                    "Selamat Datang !",
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700),
+                  )
+                ],
+              ),
+            ),
+
             //Search Bar
             const SizedBox(
-              height: 15,
+              height: 30,
             ),
             Material(
               borderRadius: BorderRadius.circular(100),
@@ -81,7 +96,7 @@ class _BodyState extends State<Body> {
                 children: const [
                   Text(
                     "Category",
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                   )
                 ],
               ),
@@ -135,7 +150,7 @@ class _BodyState extends State<Body> {
                 children: const [
                   Text(
                     "Reccomendation",
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                   )
                 ],
               ),
