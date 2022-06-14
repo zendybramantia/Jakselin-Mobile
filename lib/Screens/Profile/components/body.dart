@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:jakselin/Screens/EditProfile/edit_profile.dart';
 import 'package:jakselin/Screens/Login/login_screen.dart';
 import 'package:jakselin/Screens/Profile/components/profile_menu.dart';
 import 'package:jakselin/Screens/Profile/components/profile_pic.dart';
+import 'package:jakselin/Screens/Profile/profile.dart';
 import 'package:jakselin/models/shared_pref.dart';
 import 'package:jakselin/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,90 +23,84 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  bool _isLoading = true;
-  User user = User();
+  // User user = User();
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   user = fetchUserData();
-  // }
-
-  fetchDataUser() async {
-    try {
-      final pref = await SharedPreferences.getInstance();
-      User userdata = UserFromJson(pref.getString('user') as String);
-      setState(() {
-        user = userdata;
-        _isLoading = false;
-      });
-    } on Exception {
-      throw "No Data";
-    }
+  @override
+  void initState() {
+    super.initState();
+    checkLogin(context, null);
   }
 
   @override
   Widget build(BuildContext context) {
-    // var profile = widget.profile;
-    fetchDataUser();
-    return _isLoading
-        ? const Center(child: CircularProgressIndicator())
-        : Column(
-            children: <Widget>[
-              const SizedBox(
-                height: 20,
-              ),
-              const ProfilePic(),
-              const SizedBox(
-                height: 20,
-              ),
-              Text(
-                user.name!,
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              ProfileMenu(
-                menu: 'Username',
-                value: user.username!,
-                icon: Icons.person_outline,
-              ),
-              ProfileMenu(
-                menu: 'Email',
-                value: user.email!,
-                icon: Icons.mail_outline,
-              ),
-              ProfileMenu(
-                menu: 'Telepon',
-                value: user.nohp!,
-                icon: Icons.phone,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Button(
+    return FutureBuilder(
+        future: fetchUserData(),
+        builder: ((context, snapshot) {
+          if (snapshot.hasData) {
+            print(snapshot.data);
+            var user = snapshot.data as User;
+            return Column(
+              children: <Widget>[
+                const SizedBox(
+                  height: 20,
+                ),
+                const ProfilePic(),
+                const SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  user.name!,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                ProfileMenu(
+                  menu: 'Username',
+                  value: user.username!,
+                  icon: Icons.person_outline,
+                ),
+                ProfileMenu(
+                  menu: 'Email',
+                  value: user.email!,
+                  icon: Icons.mail_outline,
+                ),
+                ProfileMenu(
+                  menu: 'Telepon',
+                  value: user.nohp!,
+                  icon: Icons.phone,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Button(
                   press: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const EditProfile()),
+                          builder: (context) => EditProfile(
+                                id: user.id!.toString(),
+                              )),
                     );
                   },
-                  text: "Edit Profile"),
-              const SizedBox(
-                height: 20,
-              ),
-              Button(
+                  text: "Edit Profile",
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Button(
                   press: () {
-                    setState(() {
-                      _isLoading = true;
-                    });
                     logout();
                   },
-                  text: "Logout"),
-            ],
+                  text: "Logout",
+                ),
+              ],
+            );
+          }
+          return const Center(
+            child: CircularProgressIndicator(),
           );
+        }));
   }
 
   logout() async {
@@ -114,8 +111,7 @@ class _BodyState extends State<Body> {
         headers: {"Authorization": "Bearer $token"});
     if (response.statusCode == 200) {
       setState(() {
-        sharedPreferences.setString('token', '');
-        _isLoading = false;
+        sharedPreferences.remove('token');
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(
                 builder: (BuildContext context) => const LoginScreen()),

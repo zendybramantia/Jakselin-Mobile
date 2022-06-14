@@ -1,26 +1,35 @@
 import "package:flutter/material.dart";
 import 'package:jakselin/Screens/EditProfile/components/text_form_input.dart';
 import 'package:jakselin/Screens/Profile/components/profile_pic.dart';
+import 'package:jakselin/api/userapi.dart';
 import 'package:jakselin/constants.dart';
 
 class Body extends StatelessWidget {
-  const Body({Key? key}) : super(key: key);
-
+  const Body({Key? key, required this.id}) : super(key: key);
+  final String id;
   @override
   Widget build(BuildContext context) {
+    // String id = "3";
+    TextEditingController nama = TextEditingController();
+    TextEditingController email = TextEditingController();
+    TextEditingController username = TextEditingController();
+    TextEditingController password = TextEditingController();
+    TextEditingController nohp = TextEditingController();
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
         children: <Widget>[
-          ProfilePic(),
+          const ProfilePic(),
           const SizedBox(
             height: 16,
           ),
-          const TextFormInput(label: "Username", isPassword: false),
-          const TextFormInput(label: "Name", isPassword: false),
-          const TextFormInput(label: "Email", isPassword: false),
-          const TextFormInput(label: "Phone", isPassword: false),
-          const TextFormInput(label: "Password", isPassword: true),
+          Text(id),
+          TextFormInput(
+              label: "Username", isPassword: false, control: username),
+          TextFormInput(label: "Name", isPassword: false, control: nama),
+          TextFormInput(label: "Email", isPassword: false, control: email),
+          TextFormInput(label: "Phone", isPassword: false, control: nohp),
+          TextFormInput(label: "Password", isPassword: true, control: password),
           const SizedBox(
             height: 16,
           ),
@@ -29,7 +38,10 @@ class Body extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
               primary: kPrimariColor,
             ),
-            onPressed: () {},
+            onPressed: () {
+              updateUser(id, nama.text, email.text, username.text,
+                  password.text, nohp.text, context);
+            },
             child: const Text('Submit'),
           ),
         ],

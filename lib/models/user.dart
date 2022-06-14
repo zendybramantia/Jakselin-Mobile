@@ -1,9 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
-import 'package:jakselin/models/shared_pref.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 User UserFromJson(String str) => User.fromJson(json.decode(str));
 
 String UserToJson(User data) => json.encode(data.toJson());

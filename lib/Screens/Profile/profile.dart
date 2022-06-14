@@ -3,9 +3,9 @@ import 'package:jakselin/Screens/Profile/components/body.dart';
 import 'package:jakselin/models/user.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({Key? key, required this.profile}) : super(key: key);
+  const ProfileScreen({Key? key, this.profile}) : super(key: key);
 
-  final User profile;
+  final User? profile;
 
   @override
   Widget build(BuildContext context) {
