@@ -35,7 +35,7 @@ class RecommendationCard extends StatelessWidget {
                   image: DecorationImage(
                       fit: BoxFit.cover,
                       image: NetworkImage(
-                          "http://127.0.0.1:8000/${wisataInfo.gambar}"))),
+                          "http://jakselin.herokuapp.com/${wisataInfo.gambar}"))),
             ),
             const SizedBox(
               height: 10,

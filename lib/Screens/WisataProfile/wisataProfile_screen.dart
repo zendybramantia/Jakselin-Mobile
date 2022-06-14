@@ -20,7 +20,7 @@ class _WisataProfileScreenState extends State<WisataProfileScreen> {
       body: Stack(
         children: [
           Image.network(
-            "http://127.0.0.1:8000/${widget.wisataInfo.gambar}",
+            "http://jakselin.herokuapp.com/${widget.wisataInfo.gambar}",
             width: double.infinity,
             fit: BoxFit.cover,
             height: MediaQuery.of(context).size.height * 0.5,
@@ -118,7 +118,7 @@ class _WisataProfileScreenState extends State<WisataProfileScreen> {
                                     color: primaryClr,
                                     size: 27,
                                   ),
-                                  Text("Detail Tempat",
+                                  Text("Deskripsi Tempat",
                                       style: TextStyle(
                                           color: blackClr,
                                           fontSize: 16,

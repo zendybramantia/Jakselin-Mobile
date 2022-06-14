@@ -16,7 +16,7 @@ registerUser(String nama, String email, String username, String password,
     'nohp': nohp,
   });
   var response = await http.post(
-    Uri.parse('http://127.0.0.1:8000/api/user/'),
+    Uri.parse('http://jakselin.herokuapp.com/api/user/'),
     headers: {"Content-Type": "application/json"},
     body: data,
   );
@@ -41,7 +41,7 @@ updateUser(String id, String nama, String email, String username,
     'nohp': nohp,
   });
   var response = await http.post(
-    Uri.parse('http://127.0.0.1:8000/api/user/update/$id'),
+    Uri.parse('http://jakselin.herokuapp.com/api/user/update/$id'),
     headers: {"Content-Type": "application/json"},
     body: data,
   );
