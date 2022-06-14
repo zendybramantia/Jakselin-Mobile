@@ -167,10 +167,8 @@ class _BodyState extends State<Body> {
 
   signIn(String email, String password, BuildContext context) async {
     var data = jsonEncode({'email': email, 'password': password});
-    var response = await http.post(
-        Uri.parse('http://jakselin.herokuapp.com/api/login/auth'),
-        headers: {"Content-Type": "application/json"},
-        body: data);
+    var response = await http.post(Uri.parse('$apiUrl/api/login/auth'),
+        headers: {"Content-Type": "application/json"}, body: data);
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     if (response.statusCode == 200) {
       var jsonDataBody = jsonDecode(response.body);

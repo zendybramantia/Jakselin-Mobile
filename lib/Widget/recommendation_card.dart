@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jakselin/constants.dart';
 import 'package:jakselin/models/wisata.dart';
 import '../models/colors.dart';
 
@@ -34,8 +35,7 @@ class RecommendationCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                   image: DecorationImage(
                       fit: BoxFit.cover,
-                      image: NetworkImage(
-                          "http://jakselin.herokuapp.com/${wisataInfo.gambar}"))),
+                      image: NetworkImage("$apiUrl/${wisataInfo.gambar}"))),
             ),
             const SizedBox(
               height: 10,

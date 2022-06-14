@@ -107,7 +107,7 @@ class _BodyState extends State<Body> {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     var token = sharedPreferences.get('token');
     var response = await http.post(
-        Uri.parse('http://127.0.0.1:8000/api/logout'),
+        Uri.parse('http://jakselin.herokuapp.com/api/logout'),
         headers: {"Authorization": "Bearer $token"});
     if (response.statusCode == 200) {
       setState(() {

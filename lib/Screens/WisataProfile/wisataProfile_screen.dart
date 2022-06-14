@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jakselin/constants.dart';
 import 'package:jakselin/models/wisata.dart';
 import '../../../models/colors.dart';
 
@@ -20,7 +21,7 @@ class _WisataProfileScreenState extends State<WisataProfileScreen> {
       body: Stack(
         children: [
           Image.network(
-            "http://jakselin.herokuapp.com/${widget.wisataInfo.gambar}",
+            "$apiUrl/${widget.wisataInfo.gambar}",
             width: double.infinity,
             fit: BoxFit.cover,
             height: MediaQuery.of(context).size.height * 0.5,
