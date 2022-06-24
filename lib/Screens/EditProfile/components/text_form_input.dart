@@ -2,12 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:jakselin/constants.dart';
 
 class TextFormInput extends StatelessWidget {
-  const TextFormInput({
-    Key? key,
-    required this.label,
-    required this.isPassword,
-    this.control,
-  }) : super(key: key);
+  const TextFormInput(
+      {Key? key, required this.label, required this.isPassword, this.control})
+      : super(key: key);
 
   final String label;
   final bool isPassword;
@@ -22,14 +19,15 @@ class TextFormInput extends StatelessWidget {
         obscureText: isPassword,
         cursorColor: Theme.of(context).cursorColor,
         decoration: InputDecoration(
-          labelText: label,
-          labelStyle: const TextStyle(
-            color: Color.fromARGB(255, 53, 52, 52),
-          ),
-          enabledBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: kPrimariColor),
-          ),
-        ),
+            labelText: label,
+            labelStyle: const TextStyle(
+              color: Color.fromARGB(255, 53, 52, 52),
+            ),
+            enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: kPrimariColor),
+            ),
+            focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: kPrimariColor))),
       ),
     );
   }

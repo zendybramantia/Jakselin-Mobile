@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:jakselin/Screens/EditProfile/components/text_form_input.dart';
 import 'package:jakselin/Screens/Main/main_screen.dart';
 import 'package:jakselin/Screens/Profile/profile.dart';
 import 'package:jakselin/Widget/textfield_component.dart';
@@ -19,10 +20,14 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  bool submit = true;
   late Future<User> user;
   @override
   void initState() {
     super.initState();
+    setState(() {
+      submit = true;
+    });
     // checkLogin(context);
     // checkLoginStatus();
   }
@@ -78,9 +83,15 @@ class _BodyState extends State<Body> {
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
               primary: kPrimariColor,
             ),
-            onPressed: () {
-              signIn(emailController.text, passwordController.text, context);
-            },
+            onPressed: submit
+                ? () {
+                    signIn(
+                        emailController.text, passwordController.text, context);
+                    setState(() {
+                      submit = false;
+                    });
+                  }
+                : null,
             child: const Text('Masuk',
                 style: TextStyle(fontSize: 20, color: Colors.white)),
           ),
@@ -167,10 +178,8 @@ class _BodyState extends State<Body> {
 
   signIn(String email, String password, BuildContext context) async {
     var data = jsonEncode({'email': email, 'password': password});
-    var response = await http.post(
-        Uri.parse('http://jakselin.herokuapp.com/api/login/auth'),
-        headers: {"Content-Type": "application/json"},
-        body: data);
+    var response = await http.post(Uri.parse('$apiUrl/api/login/auth'),
+        headers: {"Content-Type": "application/json"}, body: data);
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     if (response.statusCode == 200) {
       var jsonDataBody = jsonDecode(response.body);

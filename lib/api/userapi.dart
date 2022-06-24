@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:jakselin/Screens/Login/login_screen.dart';
 import 'package:jakselin/Screens/Profile/profile.dart';
+import 'package:jakselin/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 registerUser(String nama, String email, String username, String password,
@@ -16,7 +17,7 @@ registerUser(String nama, String email, String username, String password,
     'nohp': nohp,
   });
   var response = await http.post(
-    Uri.parse('http://jakselin.herokuapp.com/api/user'),
+    Uri.parse('$apiUrl/api/user'),
     headers: {"Content-Type": "application/json"},
     body: data,
   );
@@ -41,7 +42,7 @@ updateUser(String id, String nama, String email, String username,
     'nohp': nohp,
   });
   var response = await http.post(
-    Uri.parse('http://jakselin.herokuapp.com/api/user/update/$id'),
+    Uri.parse('$apiUrl/api/user/update/$id'),
     headers: {"Content-Type": "application/json"},
     body: data,
   );

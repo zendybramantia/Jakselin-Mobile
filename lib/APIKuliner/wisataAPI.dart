@@ -1,11 +1,11 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:jakselin/constants.dart';
 import 'package:jakselin/models/wisata.dart';
 
 Future<List<WisataInfo>> getWisataCategory(String id) async {
-  var response = await http
-      .get(Uri.parse("http://jakselin.herokuapp.com/api/category/$id"));
+  var response = await http.get(Uri.parse("$apiUrl/api/category/$id"));
 
   if (response.statusCode != 200) {
     throw "Gagal fetching data";
@@ -29,8 +29,7 @@ Future<List<WisataInfo>> getWisataCategory(String id) async {
 }
 
 Future<List<WisataInfo>> getWisataAll() async {
-  var response =
-      await http.get(Uri.parse("http://jakselin.herokuapp.com/api/kuliner"));
+  var response = await http.get(Uri.parse("$apiUrl/api/kuliner"));
 
   if (response.statusCode != 200) {
     throw "Gagal fetching data";
@@ -54,8 +53,8 @@ Future<List<WisataInfo>> getWisataAll() async {
 }
 
 Future<List<WisataInfo>> searchWisata(String search) async {
-  var response = await http.get(
-      Uri.parse("http://jakselin.herokuapp.com/api/kuliner?search=$search"));
+  var response =
+      await http.get(Uri.parse("$apiUrl/api/kuliner?search=$search"));
 
   if (response.statusCode != 200) {
     throw "Gagal fetching data";
