@@ -6,6 +6,7 @@ import 'package:jakselin/Screens/Login/login_screen.dart';
 import 'package:jakselin/Screens/Profile/components/profile_menu.dart';
 import 'package:jakselin/Screens/Profile/components/profile_pic.dart';
 import 'package:jakselin/Screens/Profile/profile.dart';
+import 'package:jakselin/constants.dart';
 import 'package:jakselin/models/shared_pref.dart';
 import 'package:jakselin/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -106,8 +107,7 @@ class _BodyState extends State<Body> {
   logout() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     var token = sharedPreferences.get('token');
-    var response = await http.post(
-        Uri.parse('http://jakselin.herokuapp.com/api/logout'),
+    var response = await http.post(Uri.parse('$apiUrl/api/logout'),
         headers: {"Authorization": "Bearer $token"});
     if (response.statusCode == 200) {
       setState(() {
