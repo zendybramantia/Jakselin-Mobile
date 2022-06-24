@@ -25,17 +25,20 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   // User user = User();
-
+  bool userLogin = true;
   @override
   void initState() {
     super.initState();
     checkLogin(context, null);
+    setState(() {
+      bool userLogin = true;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: fetchUserData(),
+        future: userLogin ? fetchUserData() : null,
         builder: ((context, snapshot) {
           if (snapshot.hasData) {
             print(snapshot.data);
@@ -91,6 +94,9 @@ class _BodyState extends State<Body> {
                 ),
                 Button(
                   press: () {
+                    setState(() {
+                      userLogin = false;
+                    });
                     logout();
                   },
                   text: "Logout",
