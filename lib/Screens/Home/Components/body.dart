@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:jakselin/APIKuliner/wisataAPI.dart';
 import 'package:jakselin/Screens/Result/result_screen.dart';
+import 'package:jakselin/Screens/SearchResult/searchResult_screen.dart';
+import 'package:jakselin/Widget/searchButton.dart';
 import 'package:jakselin/models/wisata.dart';
 import '../../../Widget/category_card.dart';
 import '../../../Widget/recommendation_card.dart';
@@ -17,6 +19,7 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   Future wisataList = getWisataAll();
+  TextEditingController search = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,13 +69,28 @@ class _BodyState extends State<Body> {
                   decoration: BoxDecoration(
                       color: whiteClr,
                       borderRadius: BorderRadius.circular(100)),
-                  child: TextFormField(
-                      decoration: const InputDecoration(
-                    hintText: "Cari tempat wisata kuliner...",
-                    prefixIcon: Icon(Icons.search),
-                    enabledBorder: InputBorder.none,
-                    focusedBorder: InputBorder.none,
-                  )),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: TextFormField(
+                            decoration: const InputDecoration(
+                              hintText: "Cari tempat wisata kuliner...",
+                              prefixIcon: Icon(Icons.food_bank_outlined),
+                              enabledBorder: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                            ),
+                            controller: search),
+                      ),
+                      SearchButton(press: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SearchResult(
+                                      search: search.text,
+                                    )));
+                      })
+                    ],
+                  ),
                 ),
               ),
 
@@ -178,7 +196,7 @@ class _BodyState extends State<Body> {
                 child: Row(
                   children: const [
                     Text(
-                      "Reccomendation",
+                      "List Wisata Kuliner",
                       style:
                           TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     )
