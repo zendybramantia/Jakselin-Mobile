@@ -5,7 +5,6 @@ import 'package:jakselin/Screens/EditProfile/edit_profile.dart';
 import 'package:jakselin/Screens/Login/login_screen.dart';
 import 'package:jakselin/Screens/Profile/components/profile_menu.dart';
 import 'package:jakselin/Screens/Profile/components/profile_pic.dart';
-import 'package:jakselin/Screens/Profile/profile.dart';
 import 'package:jakselin/models/shared_pref.dart';
 import 'package:jakselin/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -44,7 +43,9 @@ class _BodyState extends State<Body> {
                 const SizedBox(
                   height: 20,
                 ),
-                const ProfilePic(),
+                ProfilePic(
+                  iconLink: user.avatar!,
+                ),
                 const SizedBox(
                   height: 20,
                 ),
@@ -107,7 +108,7 @@ class _BodyState extends State<Body> {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     var token = sharedPreferences.get('token');
     var response = await http.post(
-        Uri.parse('http://127.0.0.1:8000/api/logout'),
+        Uri.parse('http://jakselin.herokuapp.com/api/logout'),
         headers: {"Authorization": "Bearer $token"});
     if (response.statusCode == 200) {
       setState(() {

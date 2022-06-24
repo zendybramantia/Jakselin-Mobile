@@ -1,6 +1,5 @@
 import "package:flutter/material.dart";
 import 'package:jakselin/Screens/EditProfile/components/text_form_input.dart';
-import 'package:jakselin/Screens/Profile/components/profile_pic.dart';
 import 'package:jakselin/api/userapi.dart';
 import 'package:jakselin/constants.dart';
 
@@ -19,7 +18,6 @@ class Body extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       child: Column(
         children: <Widget>[
-          const ProfilePic(),
           const SizedBox(
             height: 16,
           ),

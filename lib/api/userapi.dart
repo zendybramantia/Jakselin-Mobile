@@ -16,7 +16,7 @@ registerUser(String nama, String email, String username, String password,
     'nohp': nohp,
   });
   var response = await http.post(
-    Uri.parse('http://jakselin.herokuapp.com/api/user/'),
+    Uri.parse('http://jakselin.herokuapp.com/api/user'),
     headers: {"Content-Type": "application/json"},
     body: data,
   );
