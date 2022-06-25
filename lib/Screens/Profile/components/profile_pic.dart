@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../constants.dart';
+
 class ProfilePic extends StatelessWidget {
   const ProfilePic({
     Key? key,
@@ -14,7 +16,7 @@ class ProfilePic extends StatelessWidget {
       height: 115,
       width: 115,
       child: CircleAvatar(
-        backgroundImage: AssetImage(iconLink),
+        backgroundImage: NetworkImage("$apiUrl/${iconLink}"),
         radius: 70,
       ),
     );
