@@ -74,6 +74,19 @@ Future<User> fetchUserData() async {
   }
 }
 
+Future<User> getUserbyID(String id) async {
+  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  var token = sharedPreferences.get('token');
+  var response = await http.get(Uri.parse('$apiUrl/api/user/$id'),
+      headers: {"Authorization": "Bearer $token"});
+  if (response.statusCode != 200) {
+    throw "Gagal Fetching data user by id";
+  }
+  var data = jsonDecode(response.body);
+  User user = User.fromJson(data["user"][0]);
+  return user;
+}
+
 // Future<String> getUserString() async {
 //   SharedPref pref = SharedPref();
 //   String userStr = pref.read('user');
