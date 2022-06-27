@@ -44,6 +44,7 @@ class _BodyState extends State<Body> {
   //         (Route<dynamic> route) => false);
   //   }
   // }
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -62,39 +63,90 @@ class _BodyState extends State<Body> {
           const SizedBox(
             height: 30,
           ),
-          TextFieldComponent(
-              size: size,
-              title: 'Email',
-              controller: emailController,
-              isPassword: false),
-          const SizedBox(
-            height: 10,
-          ),
-          TextFieldComponent(
-              size: size,
-              title: 'Password',
-              controller: passwordController,
-              isPassword: true),
-          const SizedBox(
-            height: 30,
-          ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-              primary: kPrimariColor,
+          Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                TextFieldComponent(
+                  size: size,
+                  title: 'Email',
+                  controller: emailController,
+                  isPassword: false,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                TextFieldComponent(
+                  size: size,
+                  title: 'Password',
+                  controller: passwordController,
+                  isPassword: true,
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 20),
+                    primary: kPrimariColor,
+                  ),
+                  onPressed: submit
+                      ? () {
+                          if (_formKey.currentState!.validate()) {
+                            // If the form is valid, display a snackbar. In the real world,
+                            // you'd often call a server or save the information in a database.
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Processing Data')),
+                            );
+                            signIn(emailController.text,
+                                passwordController.text, context);
+                            setState(() {
+                              submit = false;
+                            });
+                          }
+                        }
+                      : null,
+                  child: const Text('Masuk',
+                      style: TextStyle(fontSize: 20, color: Colors.white)),
+                ),
+              ],
             ),
-            onPressed: submit
-                ? () {
-                    signIn(
-                        emailController.text, passwordController.text, context);
-                    setState(() {
-                      submit = false;
-                    });
-                  }
-                : null,
-            child: const Text('Masuk',
-                style: TextStyle(fontSize: 20, color: Colors.white)),
           ),
+          // TextFieldComponent(
+          //     size: size,
+          //     title: 'Email',
+          //     controller: emailController,
+          //     isPassword: false),
+          // const SizedBox(
+          //   height: 10,
+          // ),
+          // TextFieldComponent(
+          //     size: size,
+          //     title: 'Password',
+          //     controller: passwordController,
+          //     isPassword: true),
+          // const SizedBox(
+          //   height: 30,
+          // ),
+          // ElevatedButton(
+          //   style: ElevatedButton.styleFrom(
+          //     padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+          //     primary: kPrimariColor,
+          //   ),
+          //   onPressed: submit
+          //       ? () {
+          //           signIn(
+          //               emailController.text, passwordController.text, context);
+          //           setState(() {
+          //             submit = false;
+          //           });
+          //         }
+          //       : null,
+          //   child: const Text('Masuk',
+          //       style: TextStyle(fontSize: 20, color: Colors.white)),
+          // ),
           const SizedBox(
             height: 15,
           ),

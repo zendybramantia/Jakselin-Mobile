@@ -26,25 +26,32 @@ class _TextFieldComponentState extends State<TextFieldComponent> {
       width: widget.size.width * 0.75,
       height: 50,
       child: TextFormField(
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Please enter some text';
+          }
+          return null;
+        },
         obscureText: widget.isPassword,
         controller: widget.controller,
         cursorColor: Colors.redAccent,
         // initialValue: 'Input text',
         decoration: InputDecoration(
-            labelText: widget.title,
-            labelStyle: const TextStyle(
-              color: kPrimariColor,
-            ),
-            // helperText: 'Helper text',
-            // suffixIcon: Icon(
-            //   Icons.check_circle,
-            // ),
-            enabledBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: kPrimariColor),
-            ),
-            focusedBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: kPrimariColor),
-            )),
+          labelText: widget.title,
+          labelStyle: const TextStyle(
+            color: kPrimariColor,
+          ),
+          helperText: null,
+          // suffixIcon: Icon(
+          //   Icons.check_circle,
+          // ),
+          enabledBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: kPrimariColor),
+          ),
+          focusedBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: kPrimariColor),
+          ),
+        ),
       ),
     );
     //     SizedBox(
