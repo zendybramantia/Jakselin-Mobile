@@ -5,7 +5,6 @@ import 'package:jakselin/Screens/EditProfile/edit_profile.dart';
 import 'package:jakselin/Screens/Login/login_screen.dart';
 import 'package:jakselin/Screens/Profile/components/profile_menu.dart';
 import 'package:jakselin/Screens/Profile/components/profile_pic.dart';
-import 'package:jakselin/Screens/Profile/profile.dart';
 import 'package:jakselin/constants.dart';
 import 'package:jakselin/models/shared_pref.dart';
 import 'package:jakselin/models/user.dart';
@@ -48,7 +47,7 @@ class _BodyState extends State<Body> {
                 const SizedBox(
                   height: 20,
                 ),
-                const ProfilePic(),
+                ProfilePic(avatar: user.avatar!),
                 const SizedBox(
                   height: 20,
                 ),
