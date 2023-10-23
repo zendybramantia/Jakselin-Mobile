@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:jakselin/APIKuliner/wisataAPI.dart';
+import 'package:jakselin/constants.dart';
+import 'package:jakselin/models/shared_pref.dart';
 import 'package:jakselin/models/wisata.dart';
 import '../../../models/colors.dart';
+import '../../models/user.dart';
 
 class WisataProfileScreen extends StatefulWidget {
   final WisataInfo wisataInfo;
 
-  const WisataProfileScreen({Key? key, required this.wisataInfo})
-      : super(key: key);
+  const WisataProfileScreen({
+    Key? key,
+    required this.wisataInfo,
+  }) : super(key: key);
 
   @override
   State<WisataProfileScreen> createState() => _WisataProfileScreenState();
@@ -20,7 +26,7 @@ class _WisataProfileScreenState extends State<WisataProfileScreen> {
       body: Stack(
         children: [
           Image.network(
-            "http://127.0.0.1:8000/${widget.wisataInfo.gambar}",
+            "$apiUrl/${widget.wisataInfo.gambar}",
             width: double.infinity,
             fit: BoxFit.cover,
             height: MediaQuery.of(context).size.height * 0.5,
@@ -118,7 +124,7 @@ class _WisataProfileScreenState extends State<WisataProfileScreen> {
                                     color: primaryClr,
                                     size: 27,
                                   ),
-                                  Text("Detail Tempat",
+                                  Text("Deskripsi Tempat",
                                       style: TextStyle(
                                           color: blackClr,
                                           fontSize: 16,
@@ -133,6 +139,80 @@ class _WisataProfileScreenState extends State<WisataProfileScreen> {
                                 style: const TextStyle(
                                     color: greyClr, fontSize: 15),
                               ),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 0.0),
+                              child: Row(
+                                children: const [
+                                  Icon(
+                                    Icons.comment,
+                                    color: primaryClr,
+                                    size: 27,
+                                  ),
+                                  Text("Comment",
+                                      style: TextStyle(
+                                          color: blackClr,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w400))
+                                ],
+                              ),
+                            ),
+                            // Masukkan ListChat disini
+                            FutureBuilder(
+                              future: getWisataComment(
+                                  widget.wisataInfo.id.toString()),
+                              builder: ((context, snapshot) {
+                                if (snapshot.hasData) {
+                                  // print(snapshot.data);
+                                  List<WisataComment> data =
+                                      snapshot.data as List<WisataComment>;
+                                  if (data.isEmpty) {
+                                    return const Text("Tidak ada comment");
+                                  }
+                                  return SizedBox(
+                                      height: 200,
+                                      child: ListView.builder(
+                                        padding: const EdgeInsets.all(8),
+                                        itemCount: data.length,
+                                        itemBuilder: (context, index) {
+                                          return FutureBuilder(
+                                            future: getUserbyID(
+                                                data[index].user_id.toString()),
+                                            builder: (context, snapshot) {
+                                              if (snapshot.hasData) {
+                                                User userdata =
+                                                    snapshot.data as User;
+                                                return Card(
+                                                  child: ListTile(
+                                                      leading:
+                                                          const FlutterLogo(
+                                                              size: 40.0),
+                                                      title: Text(
+                                                          userdata.name ??
+                                                              "No Name"),
+                                                      subtitle: Text(
+                                                          data[index].comment),
+                                                      trailing: const Icon(
+                                                          Icons.more_vert)
+                                                      // isThreeLine: true,
+                                                      ),
+                                                );
+                                              }
+                                              return const Center(
+                                                child:
+                                                    CircularProgressIndicator(),
+                                              );
+                                            },
+                                          );
+                                          // return Text(data[index].comment);
+                                        },
+                                      ));
+                                }
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              }),
                             ),
                           ],
                         ),

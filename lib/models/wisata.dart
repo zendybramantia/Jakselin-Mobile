@@ -11,3 +11,10 @@ class WisataInfo {
     required this.gambar,
   });
 }
+
+class WisataComment {
+  final String comment;
+  final int user_id;
+
+  WisataComment({required this.comment, required this.user_id});
+}

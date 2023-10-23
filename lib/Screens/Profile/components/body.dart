@@ -5,7 +5,7 @@ import 'package:jakselin/Screens/EditProfile/edit_profile.dart';
 import 'package:jakselin/Screens/Login/login_screen.dart';
 import 'package:jakselin/Screens/Profile/components/profile_menu.dart';
 import 'package:jakselin/Screens/Profile/components/profile_pic.dart';
-import 'package:jakselin/Screens/Profile/profile.dart';
+import 'package:jakselin/constants.dart';
 import 'package:jakselin/models/shared_pref.dart';
 import 'package:jakselin/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -24,17 +24,20 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   // User user = User();
-
+  bool userLogin = true;
   @override
   void initState() {
     super.initState();
     checkLogin(context, null);
+    setState(() {
+      bool userLogin = true;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: fetchUserData(),
+        future: userLogin ? fetchUserData() : null,
         builder: ((context, snapshot) {
           if (snapshot.hasData) {
             print(snapshot.data);
@@ -44,7 +47,7 @@ class _BodyState extends State<Body> {
                 const SizedBox(
                   height: 20,
                 ),
-                const ProfilePic(),
+                ProfilePic(avatar: user.avatar!),
                 const SizedBox(
                   height: 20,
                 ),
@@ -90,6 +93,9 @@ class _BodyState extends State<Body> {
                 ),
                 Button(
                   press: () {
+                    setState(() {
+                      userLogin = false;
+                    });
                     logout();
                   },
                   text: "Logout",
@@ -106,8 +112,7 @@ class _BodyState extends State<Body> {
   logout() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     var token = sharedPreferences.get('token');
-    var response = await http.post(
-        Uri.parse('http://127.0.0.1:8000/api/logout'),
+    var response = await http.post(Uri.parse('$apiUrl/api/logout'),
         headers: {"Authorization": "Bearer $token"});
     if (response.statusCode == 200) {
       setState(() {

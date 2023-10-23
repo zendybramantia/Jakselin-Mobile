@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:jakselin/Screens/Login/login_screen.dart';
+import 'package:jakselin/constants.dart';
 import 'package:jakselin/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
@@ -62,8 +63,7 @@ Future<bool> islogin(BuildContext context) async {
 Future<User> fetchUserData() async {
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   var token = sharedPreferences.get('token');
-  var response = await http.get(
-      Uri.parse('http://127.0.0.1:8000/api/user/token'),
+  var response = await http.get(Uri.parse('$apiUrl/api/user/token'),
       headers: {"Authorization": "Bearer $token"});
   if (response.statusCode == 200) {
     print(response.body);
@@ -72,6 +72,19 @@ Future<User> fetchUserData() async {
   } else {
     throw Exception(response.body);
   }
+}
+
+Future<User> getUserbyID(String id) async {
+  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  var token = sharedPreferences.get('token');
+  var response = await http.get(Uri.parse('$apiUrl/api/user/$id'),
+      headers: {"Authorization": "Bearer $token"});
+  if (response.statusCode != 200) {
+    throw "Gagal Fetching data user by id";
+  }
+  var data = jsonDecode(response.body);
+  User user = User.fromJson(data["user"][0]);
+  return user;
 }
 
 // Future<String> getUserString() async {

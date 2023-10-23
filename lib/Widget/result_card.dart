@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jakselin/constants.dart';
 import 'package:jakselin/models/colors.dart';
 import 'package:jakselin/models/wisata.dart';
 
@@ -32,8 +33,7 @@ class ResultCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20),
                     image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: NetworkImage(
-                            "http://127.0.0.1:8000/${wisataInfo.gambar}"))),
+                        image: NetworkImage("$apiUrl/${wisataInfo.gambar}"))),
               ),
               const SizedBox(
                 height: 10,
