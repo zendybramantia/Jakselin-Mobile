@@ -168,7 +168,7 @@ class _WisataProfileScreenState extends State<WisataProfileScreen> {
                                   List<WisataComment> data =
                                       snapshot.data as List<WisataComment>;
                                   if (data.isEmpty) {
-                                    throw "Data tidak ada";
+                                    return const Text("Tidak ada comment");
                                   }
                                   return SizedBox(
                                       height: 200,
